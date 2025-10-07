@@ -5,12 +5,13 @@ import pandas as pd
 
 app = Flask(__name__)
 
-MODEL_PATH = "./crop_prediction_model.pkl"
+# Define the path to your model and the feature names it expects
+MODEL_PATH = "crop_recommendation_model.pkl"
+feature_names = ['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']
 
+# Load the machine learning model from the pickle file
 with open(MODEL_PATH, 'rb') as file:
-    model_data = pickle.load(file)
-    model = model_data["model"]
-    feature_names = model_data["feature_names"]
+    model = pickle.load(file)
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -20,9 +21,10 @@ def home():
             inputs = [float(request.form.get(feature, 0)) for feature in feature_names]
             input_df = pd.DataFrame([inputs], columns=feature_names)
             prediction = model.predict(input_df)[0]
-            prediction_result = "Rainfall" if prediction == 1 else "No Rainfall"
+            # Assuming the model returns the crop name as a string.
+            prediction_result = f"The recommended crop is: {prediction.capitalize()}"
         except Exception as e:
-            prediction_result = f"Error: {str(e)}"
+            prediction_result = f"Error during prediction: {str(e)}"
     
     return render_template('index.html', prediction=prediction_result)
 

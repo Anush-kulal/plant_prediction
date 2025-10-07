@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8f0;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            color: #2e8b57;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #2e8b57;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background-color: #3cb371;
+        }
+        .prediction {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2e8b57;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Recommendation System</h1>
+        <form action="/" method="post">
+            <div class="form-group"><label for="N">Nitrogen (N) in soil (kg/ha):</label><input type="number" step="any" id="N" name="N" required></div>
+            <div class="form-group"><label for="P">Phosphorus (P) in soil (kg/ha):</label><input type="number" step="any" id="P" name="P" required></div>
+            <div class="form-group"><label for="K">Potassium (K) in soil (kg/ha):</label><input type="number" step="any" id="K" name="K" required></div>
+            <div class="form-group"><label for="temperature">Temperature (°C):</label><input type="number" step="any" id="temperature" name="temperature" required></div>
+            <div class="form-group"><label for="humidity">Humidity (%):</label><input type="number" step="any" id="humidity" name="humidity" required></div>
+            <div class="form-group"><label for="ph">Soil pH:</label><input type="number" step="any" id="ph" name="ph" required></div>
+            <div class="form-group"><label for="rainfall">Rainfall (mm):</label><input type="number" step="any" id="rainfall" name="rainfall" required></div>
+            <button type="submit" class="btn">Predict Crop</button>
+        </form>
+        {% if prediction %}
+            <div class="prediction">{{ prediction }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
